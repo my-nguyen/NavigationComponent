@@ -1,11 +1,13 @@
 package com.florian_walther.navigationcomponent
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.florian_walther.navigationcomponent.databinding.ActivityMainBinding
 
@@ -30,5 +32,24 @@ class MainActivity : AppCompatActivity() {
     // for the Up button
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_terms_n_conditions -> {
+                val action = NavGraphDirections.actionGlobalTermsFragment()
+                navController.navigate(action)
+                true
+            }
+            else -> {
+                // navigate to SettingsFragment; must ensure menu item ID matches SettingsFragment ID in nav_graph.xml
+                item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+            }
+        }
     }
 }
