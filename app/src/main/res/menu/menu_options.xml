@@ -6,6 +6,7 @@
         android:id="@+id/action_terms_n_conditions"
         android:title="Terms &amp; Conditions"
         app:showAsAction="never" />
+    <!-- item ID must match Fragment ID, or settingsFragment in this case -->
     <item
         android:id="@+id/settingsFragment"
         android:menuCategory="secondary"
