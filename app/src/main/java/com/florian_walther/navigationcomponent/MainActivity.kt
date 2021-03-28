@@ -7,10 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.florian_walther.navigationcomponent.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // remove the Up button when we switch between bottom nav tabs
         val destinations = setOf(R.id.homeFragment, R.id.searchFragment)
-        appBarConfiguration = AppBarConfiguration(destinations)
+        appBarConfiguration = AppBarConfiguration(destinations, binding.navDrawer)
 
         setSupportActionBar(binding.toolbar)
         // connect the toolbar to the navController
@@ -37,11 +34,14 @@ class MainActivity : AppCompatActivity() {
 
         // set up bottom nav
         binding.bottomNav.setupWithNavController(navController)
+
+        // set up nav drawer items
+        binding.navView.setupWithNavController(navController)
     }
 
     // for the Up button
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
