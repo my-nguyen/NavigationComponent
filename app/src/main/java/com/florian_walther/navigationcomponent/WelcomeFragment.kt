@@ -3,6 +3,7 @@ package com.florian_walther.navigationcomponent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.florian_walther.navigationcomponent.databinding.FragmentWelcomeBinding
 
@@ -16,6 +17,11 @@ class WelcomeFragment: Fragment(R.layout.fragment_welcome) {
         binding.apply {
             tvUsername.text = args.username
             tvPassword.text = args.password
+
+            btOk.setOnClickListener {
+                val action = WelcomeFragmentDirections.actionWelcomeFragmentToHomeFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 }
