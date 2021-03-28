@@ -11,9 +11,14 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentLoginBinding.bind(view)
-        binding.btConfirm.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment()
-            findNavController().navigate(action)
+        binding.apply {
+            val username = edUsername.text.toString()
+            val password = edPassword.text.toString()
+
+            btConfirm.setOnClickListener {
+                val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(username, password)
+                findNavController().navigate(action)
+            }
         }
     }
 }
